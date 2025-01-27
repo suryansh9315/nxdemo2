@@ -1,3 +1,13 @@
+## 0.2.1 (2025-01-27)
+
+### 🩹 Fixes
+
+- Updated ([a604e29](https://github.com/suryansh9315/nxdemo2/commit/a604e29))
+
+### ❤️ Thank You
+
+- suryansh-yc
+
 ## 0.2.0 (2025-01-27)
 
 ### 🚀 Features

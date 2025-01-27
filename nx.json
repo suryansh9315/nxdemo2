@@ -35,7 +35,8 @@
       "plugin": "@nx/jest/plugin",
       "options": {
         "targetName": "test"
-      }
+      },
+      "exclude": ["apps/express-e2e/**/*"]
     }
   ],
   "generators": {
@@ -53,6 +54,28 @@
         "style": "css",
         "linter": "eslint"
       }
+    }
+  },
+  "targetDefaults": {
+    "@nx/esbuild:esbuild": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    }
+  },
+  "release": {
+    "projects": ["react", "node"],
+    "projectsRelationship": "independent",
+    "changelog": {
+      "projectChangelogs": {
+        "createRelease": "github"
+      }
+    },
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/apps/{projectName}"
+      },
+      "conventionalCommits": true
     }
   }
 }

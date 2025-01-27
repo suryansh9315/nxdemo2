@@ -1,4 +1,4 @@
-name: CI React
+name: CI React Release
 
 on:
     push:

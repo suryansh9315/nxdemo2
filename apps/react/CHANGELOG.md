@@ -1,3 +1,13 @@
+## 0.1.1 (2025-01-27)
+
+### 🩹 Fixes
+
+- Updated home ([2e57342](https://github.com/suryansh9315/nxdemo2/commit/2e57342))
+
+### ❤️ Thank You
+
+- suryansh-yc
+
 ## 0.1.0 (2025-01-27)
 
 ### 🚀 Features

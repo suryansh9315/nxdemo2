@@ -28,6 +28,8 @@ jobs:
             - name: Website / Build Website
               run: npx nx build node
             - name: release
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: npx nx release --projects=node --skip-publish
     ci-website-status-check:
         if: always() && !cancelled()

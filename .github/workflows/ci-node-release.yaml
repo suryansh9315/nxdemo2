@@ -1,11 +1,11 @@
 name: CI React
 
 on:
-    pull_request: 
+    push:
         branches: main
         paths: 
             - "/package.json"
-            - "/apps/react/**"
+            - "/apps/node/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,7 +26,9 @@ jobs:
               run: npm ci --legacy-peer-deps
             - uses: nrwl/nx-set-shas@v4
             - name: Website / Build Website
-              run: npx nx build react
+              run: npx nx build node
+            - name: release
+              run: npx nx release --projects=node --skip-publish
     ci-website-status-check:
         if: always() && !cancelled()
         timeout-minutes: 1

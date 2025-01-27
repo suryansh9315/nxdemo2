@@ -1,7 +1,7 @@
 name: CI React
 
 on:
-    pull_request: 
+    push:
         branches: main
         paths: 
             - "/package.json"
@@ -27,6 +27,8 @@ jobs:
             - uses: nrwl/nx-set-shas@v4
             - name: Website / Build Website
               run: npx nx build react
+            - name: release
+              run: npx nx release --projects=react --skip-publish
     ci-website-status-check:
         if: always() && !cancelled()
         timeout-minutes: 1

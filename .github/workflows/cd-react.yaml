@@ -3,16 +3,21 @@ name: CI React Release
 on:
     push:
         branches: main
-        paths: 
-            - "/package.json"
-            - "/apps/react/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+    changed-files-check:
+      uses: ./.github/workflows/changed-files.yaml
+      with:
+        files: |
+          package.json
+          apps/react/**
     website-build-release:
+        needs: changed-files-check
+        if: needs.changed-files-check.outputs.any_changed == 'true'
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -35,7 +40,7 @@ jobs:
         if: always() && !cancelled()
         timeout-minutes: 1
         runs-on: ubuntu-latest
-        needs: [website-build-release]
+        needs: [changed-files-check, website-build-release]
         steps:
         - name: Fail job if any needs failed
           if: contains(needs.*.result, 'failure')

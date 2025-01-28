@@ -493,7 +493,7 @@ export function NxWelcome({ title }: { title: string }) {
                   </svg>
                   <span>
                     Documentation
-                    <span> Everything is in there give it your best in CI/CD </span>
+                    <span> Everything is in there give it your best in CI/CD part 2 </span>
                   </span>
                   <svg
                     fill="none"

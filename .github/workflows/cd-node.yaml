@@ -1,4 +1,4 @@
-name: CI Node Release
+name: CD Node
 
 on:
     push:

@@ -1,18 +1,23 @@
-name: CI React Release
+name: CD Node
 
 on:
     push:
         branches: main
-        paths: 
-            - "/package.json"
-            - "/apps/react/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-    website-build-release:
+    changed-files-check:
+      uses: ./.github/workflows/changed-files.yaml
+      with:
+        files: |
+          package.json
+          apps/node/**
+    node-build-release:
+        needs: changed-files-check
+        if: needs.changed-files-check.outputs.any_changed == 'true'
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -26,16 +31,16 @@ jobs:
               run: npm ci --legacy-peer-deps
             - uses: nrwl/nx-set-shas@v4
             - name: Website / Build Website
-              run: npx nx build react
+              run: npx nx build node
             - name: release
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: npx nx release --projects=react --skip-publish
+              run: npx nx release --projects=node --skip-publish
     ci-website-status-check:
         if: always() && !cancelled()
         timeout-minutes: 1
         runs-on: ubuntu-latest
-        needs: [website-build-release]
+        needs: [changed-files-check, node-build-release]
         steps:
         - name: Fail job if any needs failed
           if: contains(needs.*.result, 'failure')

@@ -8,6 +8,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Add Jobs for Linting & Testing & Deploy to AWS
 jobs:
     changed-files-check:
       uses: ./.github/workflows/changed-files.yaml

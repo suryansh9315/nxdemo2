@@ -68,7 +68,8 @@
     "projectsRelationship": "independent",
     "changelog": {
       "projectChangelogs": {
-        "createRelease": "github"
+        "createRelease": "github",
+        "file": false
       }
     },
     "version": {
